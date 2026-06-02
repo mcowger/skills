@@ -1,0 +1,77 @@
+{
+  "skill_name": "github-tool-finder",
+  "evals": [
+    {
+      "id": 1,
+      "name": "tui-vibe-coding-tools",
+      "prompt": "Find me open-source tools for vibe coding in a TUI environment. I need something that works on Linux, supports multiple LLM providers, and has active development.",
+      "expected_output": "A table of 30-50 TUI coding tools with GitHub links, star counts, fork counts, last update times, and descriptions. Tools should be verified for Linux compatibility, multi-LLM support, and recent activity.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "result-count-minimum",
+          "description": "Returns at least 20 relevant tools (relaxed from 30 for niche domains)",
+          "type": "count",
+          "min": 20
+        },
+        {
+          "name": "output-format-table",
+          "description": "Output is formatted as a markdown table with all required columns",
+          "type": "format",
+          "required_columns": ["Tool Name", "GitHub Link", "Star Count", "Fork Count", "Last Update", "Description"]
+        },
+        {
+          "name": "linux-compatibility-verified",
+          "description": "Tools are verified or noted for Linux compatibility",
+          "type": "constraint_check"
+        },
+        {
+          "name": "multi-llm-support-noted",
+          "description": "Multi-LLM provider support is mentioned for relevant tools",
+          "type": "constraint_check"
+        },
+        {
+          "name": "no-web-search-used",
+          "description": "No general web search (Tavily, Google) was used - only gh CLI or GitHub tools",
+          "type": "process"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "postgresql-cli-tools",
+      "prompt": "I'm looking for CLI tools to manage PostgreSQL databases. Must support connection pooling, have a TUI interface, and be actively maintained (updated in the last 6 months). Prefer Rust or Go implementations.",
+      "expected_output": "A table of 30-50 PostgreSQL CLI tools with GitHub links, star counts, fork counts, last update times, and descriptions. Tools should be verified for TUI support, connection pooling capability, and recent updates. Implementation language should be noted.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "result-count-minimum",
+          "description": "Returns at least 15 relevant tools (relaxed for constrained search)",
+          "type": "count",
+          "min": 15
+        },
+        {
+          "name": "output-format-table",
+          "description": "Output is formatted as a markdown table with all required columns",
+          "type": "format",
+          "required_columns": ["Tool Name", "GitHub Link", "Star Count", "Fork Count", "Last Update", "Description"]
+        },
+        {
+          "name": "tui-interface-verified",
+          "description": "Tools are verified for TUI interface support or clearly noted as GUI/libraries",
+          "type": "constraint_check"
+        },
+        {
+          "name": "constraint-transparency",
+          "description": "Clearly notes which constraints could not be verified (connection pooling, Rust/Go impl)",
+          "type": "transparency"
+        },
+        {
+          "name": "no-web-search-used",
+          "description": "No general web search (Tavily, Google) was used - only gh CLI or GitHub tools",
+          "type": "process"
+        }
+      ]
+    }
+  ]
+}

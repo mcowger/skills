@@ -1,0 +1,41 @@
+{
+  "skill_name": "mise-expert",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just switched this repo from nvm and direnv to mise. Please set it up so the project uses Node 22 and Bun latest, loads values from a .env file, and fails clearly if DATABASE_URL is missing. Explain why you're choosing each mise feature before editing anything.",
+      "expected_output": "A guided explanation plus a correct mise-native configuration using [tools], env._.file, and a required variable pattern, while treating direnv carefully rather than making it the default.",
+      "files": [],
+      "expectations": [
+        "Explains why `mise use` or `[tools]` is the right way to pin Node and Bun rather than only suggesting one-off installation commands.",
+        "Uses mise-native environment configuration such as `[env]` and `env._.file` instead of recommending direnv as the primary solution.",
+        "Shows a clear required-variable pattern for `DATABASE_URL`, including a user-facing message or explicit required configuration.",
+        "Calls out that direnv is an edge-case integration and not the default recommendation for mise-managed PATH and environment behavior."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "mise says this project wants node 22, but node -v still prints 20. Walk me through how you'd debug it. I use zsh and I think I put mise activate in the wrong place. Please prioritize diagnosis over random resets.",
+      "expected_output": "A structured troubleshooting flow focused on activation placement, PATH ordering, mise doctor, mise ls / which checks, and a clear explanation of why the wrong version can stay active.",
+      "files": [],
+      "expectations": [
+        "Prioritizes diagnosis before destructive or broad reset steps such as cache clearing or reinstalling everything.",
+        "Checks activation placement and explains that `mise activate` belongs in an interactive shell rc file rather than a profile/login file.",
+        "Uses concrete troubleshooting commands such as `mise doctor`, `mise ls`, `mise which` and/or `which -a node`.",
+        "Explains PATH ordering or shim/activation behavior as the likely cause of the wrong active Node version."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want to manage a few CLIs with mise: ripgrep from GitHub releases, prettier from npm, and eza from crates.io. Show me the best backend choice for each, call out the dependencies, and give me the exact commands or mise.toml entries I should use.",
+      "expected_output": "Correct backend selection and syntax for github, npm, and cargo, with explanation of tradeoffs and required prerequisites.",
+      "files": [],
+      "expectations": [
+        "Selects `github:` syntax for ripgrep, `npm:` syntax for prettier, and `cargo:` syntax for eza.",
+        "States the key prerequisite for each language-specific backend, especially that npm requires node/npm and cargo requires Rust/cargo.",
+        "Gives exact runnable commands or equivalent `[tools]` entries for all three CLIs.",
+        "Explains at least one backend tradeoff, such as why GitHub releases are a good fit for prebuilt binaries or why npm/cargo introduce extra dependencies."
+      ]
+    }
+  ]
+}
