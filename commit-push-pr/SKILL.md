@@ -69,6 +69,12 @@ gh pr create --base <default-branch> --head "$(git branch --show-current)" \
   --body "<PR body, see structure below>"
 ```
 
+### Repository PR template — mandatory
+
+Before drafting the PR body, inspect the repository for a pull-request template. Look for the standard GitHub locations and naming variants, including `.github/PULL_REQUEST_TEMPLATE.md`, `.github/PULL_REQUEST_TEMPLATE/*.md`, `PULL_REQUEST_TEMPLATE.md`, and `docs/PULL_REQUEST_TEMPLATE.md` (use a repository file search so case or naming variants are not missed).
+
+If a template is present, you **MUST** use the applicable template as the PR body. Preserve its headings, ordering, checklists, and requested fields; fill in every applicable section from the diff and commit history, and remove or explain only placeholders that do not apply. The recommended structure below is guidance only when the repository has no applicable template. If multiple templates are present and the applicable one is not clear, stop and ask the user which template to use rather than choosing arbitrarily.
+
 ### PR title
 - Mirror the commit's Conventional Commit subject (e.g. `feat(client): add request ID correlation`).
 - Keep it under ~72 chars; no trailing period.
