@@ -1,6 +1,7 @@
 ---
 name: codex-configuration
 description: Configure and customize the Codex harness (openai/codex) settings, model providers, model catalogs, auth, approvals and sandboxing, MCP servers, hooks, skills, TUI keybindings, features, and CLI usage via ~/.codex/config.toml. TRIGGERS - codex config, configure codex, codex settings, config.toml, codex models, model_providers, model catalog, codex login, codex auth, codex sandbox, codex approvals, codex mcp, codex keybindings, codex keymap, codex profile, codex features, codex doctor.
+disable-model-invocation: true
 ---
 
 # Codex Configuration

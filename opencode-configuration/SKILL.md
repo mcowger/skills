@@ -1,6 +1,7 @@
 ---
 name: opencode-configuration
 description: Configure and customize OpenCode (opencode-ai) coding agent settings, providers and models, agents, permissions, MCP servers, commands, skills, plugins, TUI themes, and keybinds. TRIGGERS - opencode config, configure opencode, opencode.json, opencode settings, opencode providers, custom models, whitelist, opencode agents, opencode permissions, opencode mcp, opencode keybinds, tui.json, opencode plugins, opencode skills, opencode commands.
+disable-model-invocation: true
 ---
 
 # OpenCode Configuration

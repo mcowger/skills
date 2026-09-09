@@ -1,6 +1,7 @@
 ---
 name: pi-configuration
 description: Configure and customize the Pi coding agent (@earendil-works/pi-coding-agent) settings, custom providers and models, keybindings, themes, extensions, packages, skills, prompt templates, and MCP servers via the pi-mcp-adapter plugin. TRIGGERS - pi config, configure pi, pi settings, settings.json, pi models, models.json, custom provider, pi keybindings, keybindings.json, pi themes, pi extensions, pi packages, pi install, pi skills, prompt templates, PI_CODING_AGENT_DIR, pi mcp, pi-mcp-adapter, .mcp.json, directTools.
+disable-model-invocation: true
 ---
 
 # Pi Configuration

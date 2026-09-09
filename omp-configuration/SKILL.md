@@ -1,6 +1,7 @@
 ---
 name: omp-configuration
 description: Configure and customize Oh My Pi (OMP) coding harness settings, model roles, custom providers, keybindings, MCP servers, plugins, tool approvals, and compaction. TRIGGERS - omp config, configure omp, oh my pi configuration, omp settings, model roles, omp keybindings, omp mcp, models.yml, omp plugins, omp themes, compaction settings, fallback chains.
+disable-model-invocation: true
 ---
 
 # OMP Configuration
