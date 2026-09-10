@@ -27,6 +27,8 @@ Cora reviews diffs and scans source using the configured LLM provider. Select th
    Apply the same prefix to other help calls; omit any additional credential variables exposed by future versions. Do not dump the environment or read `~/.cora/auth.toml` into tool output. Keep credentials available for actual authorized reviews.
 5. A mention of Cora triggers this guidance, **not permission to execute every command**. A review request does not authorize staging, committing, pushing, amending, installing hooks, changing configuration, dismissing findings, uploading SARIF, or persisting findings to external memory.
 6. Review commands may write caches, findings, and `.cora/history/`. Inspect status afterward and do not stage generated artifacts automatically.
+7. Keep Cora caching enabled. Disabling caching is an anti-pattern; do not add `--no-cache` just to force another review or scan.
+8. Do not rerun the same Cora scan or review when the reviewed file contents have not changed. A scan followed by type checking, staging, or other non-file mutations does not require another scan. Cora scans are not free. Run a new command only for changed input files, an intentionally different review scope, or an explicit user request.
 
 ## Choose the right scope
 
@@ -97,7 +99,7 @@ cora review --base origin/main --format json --quiet --output-file /tmp/cora-rev
 - Supported formats: `pretty`, `json`, `compact`, `sarif`. Do not copy upstream examples using unsupported `--format markdown`.
 - `--progress` emits NDJSON progress to **stderr**. Keep it separate from the result on stdout. Prefer non-streaming JSON for machine parsing; `--stream` is for interactive output.
 - Keep auto-chunking enabled (default). There is `--no-auto-chunk`, not an `--auto-chunk` flag in 0.15.0. Narrow the scope or deliberately adjust `--max-diff-size` if necessary.
-- Caching can reuse a prior diff review. Add `--no-cache` when a fresh LLM review is required, especially after changing review settings/context.
+- Caching reuses prior diff reviews. Keep it enabled; disabling caching is an anti-pattern. Do not rerun just to get a fresh LLM review, especially when the reviewed files and scope are unchanged.
 - `--severity major` filters lower-severity findings. Disclose filtering; do not describe filtered output as an exhaustive clean review.
 - For valid JSON output, interpret the result fields directly. An empty `issues` array means the review found no issues. When it appears with `"should_block": false`, the review succeeded cleanly, even if `summary` is an empty string. Do not treat this result as an error or ask for a rerun just because the summary is blank:
   ```json
