@@ -99,7 +99,15 @@ cora review --base origin/main --format json --quiet --output-file /tmp/cora-rev
 - Keep auto-chunking enabled (default). There is `--no-auto-chunk`, not an `--auto-chunk` flag in 0.15.0. Narrow the scope or deliberately adjust `--max-diff-size` if necessary.
 - Caching can reuse a prior diff review. Add `--no-cache` when a fresh LLM review is required, especially after changing review settings/context.
 - `--severity major` filters lower-severity findings. Disclose filtering; do not describe filtered output as an exhaustive clean review.
-- Exit **0 is not proof of no findings or complete coverage**: warning-mode reviews, empty diffs, or skipped/failed analysis can return without blocking. Inspect stdout, stderr, reported scope, and actual findings.
+- For valid JSON output, interpret the result fields directly. An empty `issues` array means the review found no issues. When it appears with `"should_block": false`, the review succeeded cleanly, even if `summary` is an empty string. Do not treat this result as an error or ask for a rerun just because the summary is blank:
+  ```json
+  {
+    "issues": [],
+    "should_block": false,
+    "summary": ""
+  }
+  ```
+- Exit **0 is not proof of no findings or complete coverage** by itself: warning-mode reviews, empty diffs, or skipped/failed analysis can return without blocking. For a valid, complete JSON result, `issues: []` is the evidence of no findings; still inspect reported scope and diagnostics for coverage gaps. A nonzero exit, invalid/truncated JSON, or explicit skipped/failed analysis requires investigation.
 - `--ci` is documented to exit **2 if any findings** and skip the normal diff-size limit; quality-gate failure can also return 2. Treat other nonzero statuses as failures to investigate, not automatic evidence of code defects. Upstream exit-code tables are inconsistent; preserve the actual status and diagnostics.
 - A scan can skip failed batches by default. Use `--no-continue-on-batch-error` when partial success is unacceptable. Lower `--batch-files` for provider limits; report skipped files/batches and incomplete reviews.
 - Verify actionable findings against source and tests; LLM findings are not automatically correct. Do not blindly apply suggestions or dismiss findings to produce a passing report.
