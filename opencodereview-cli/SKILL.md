@@ -90,6 +90,7 @@ ocr review --from main --to feature-branch --format json --audience agent --outp
 
 - Supported review/scan formats: `text`, `json`, `sarif`. Delegate mode supports only `text`/`json` (no SARIF).
 - `--audience human` (default) streams progress lines to stderr for json/sarif; `--audience agent` quiets stdout to the final summary/JSON. Use `agent` in CI or when piping to another agent.
+- MUST NOT pipe `ocr` output through `head`, `tail`, `grep`, `sed`, `awk`, `cut`, `less`, `more`, or any similar filtering/paging tool. Run the command bare so all output is captured in full. To narrow results, use OCR's own flags instead (e.g. `--format json`, `--audience agent`, `--output <file>`, `--severity`/`--category`, `--limit`) — never shell-level filtering.
 - JSON success envelope includes `status`, `summary` (`files_reviewed`, `comments`, `total_tokens`, `input_tokens`, `output_tokens`, `elapsed`), `comments[]` (`path`, `content`, `start_line`, `end_line`, `existing_code`, `suggestion_code`, `thinking`), optional `warnings`, `session_id`, and `resume` metadata on resumed runs.
 - When no files are eligible, JSON emits a `skipped` envelope (`"status": "skipped"`, `"comments": []`, e.g. `"No supported files changed."`). That means no review occurred — not a clean bill of health. Use `--preview` to confirm scope.
 - An empty `comments` array with `status: success` means the review completed with no findings. Do not treat it as an error or rerun just because the summary text is terse.
